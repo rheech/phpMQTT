@@ -1,7 +1,5 @@
 <?php
 
-namespace Bluerhinos;
-
 /*
  	phpMQTT
 	A simple php class to connect/publish/subscribe to an MQTT broker
@@ -81,10 +79,11 @@ class phpMQTT {
 
 
 		if ($this->cafile) {
-			$socketContext = stream_context_create(["ssl" => [
+			$socketContext = stream_context_create(array(
+			"ssl" => array(
 				"verify_peer_name" => true,
 				"cafile" => $this->cafile
-				]]);
+				)));
 			$this->socket = stream_socket_client("tls://" . $this->address . ":" . $this->port, $errno, $errstr, 60, STREAM_CLIENT_CONNECT, $socketContext);
 		} else {
 			$this->socket = stream_socket_client("tcp://" . $this->address . ":" . $this->port, $errno, $errstr, 60, STREAM_CLIENT_CONNECT);
